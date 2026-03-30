@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="home-wrapper">
+
+    <div class="hero-section text-center">
+        <h1 class="hero-title">Manage Your Finances Easily</h1>
+        <p class="hero-subtitle">
+            Track income, expenses, and savings in one simple place.
+        </p>
+    </div>
+
+    <div class="row justify-content-center g-4 home-cards">
+        <div class="col-md-4">
+            <div class="home-card text-center">
+                <h3>Add Income</h3>
+                <p>Save your earnings with source, amount, date, and notes.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="home-card text-center">
+                <h3>Add Expense</h3>
+                <p>Record your daily spending in a simple and organized way.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="home-card text-center">
+                <h3>View Dashboard</h3>
+                <p>See total income, expense, savings, and recent transactions quickly.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-footer text-center">
+        <p>© 2026 ClaraFlow Finance Manager</p>
+    </div>
+
+</div>
+
+{% endblock %}
