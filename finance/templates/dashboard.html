@@ -70,9 +70,9 @@
                         <td>{{ t.date }}</td>
                         <td>
                             {% if t.source %}
-                                Income
+                                <span class="badge bg-success">Income</span>
                             {% else %}
-                                Expense
+                                <span class="badge bg-danger">Expense</span>
                             {% endif %}
                         </td>
                         <td>
@@ -82,7 +82,13 @@
                                 {{ t.get_category_display }}
                             {% endif %}
                         </td>
-                        <td>₹ {{ t.amount }}</td>
+                        <td>
+                            {% if t.source %}
+                                <span class="text-success fw-bold">₹ {{ t.amount }}</span>
+                            {% else %}
+                                <span class="text-danger fw-bold">₹ {{ t.amount }}</span>
+                            {% endif %}
+                        </td>
                         <td>{{ t.notes|default:"-" }}</td>
                         <td>
                           {% if t.source %}
