@@ -51,6 +51,38 @@
 
     <div class="transaction-box">
         <h3 class="mb-3">Recent Transactions</h3>
+        <div class="transaction-filter mb-4">
+            <form method="GET" class="row g-3 align-items-end justify-content-center">
+        
+                <div class="col-md-3">
+                    <label class="form-label">Transaction Type</label>
+                    <select name="type" class="form-select">
+                        <option value="all" {% if transaction_type == "all" %}selected{% endif %}>All Transactions</option>
+                        <option value="income" {% if transaction_type == "income" %}selected{% endif %}>Income Only</option>
+                        <option value="expense" {% if transaction_type == "expense" %}selected{% endif %}>Expense Only</option>
+                    </select>
+                </div>
+        
+                <div class="col-md-3">
+                    <label class="form-label">From Date</label>
+                    <input type="date" name="start_date" class="form-control" value="{{ start_date|default:'' }}">
+                </div>
+        
+                <div class="col-md-3">
+                    <label class="form-label">To Date</label>
+                    <input type="date" name="end_date" class="form-control" value="{{ end_date|default:'' }}">
+                </div>
+        
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-info w-100">Apply</button>
+                </div>
+        
+                <div class="col-md-1">
+                    <a href="/dashboard/" class="btn btn-secondary w-100">Clear</a>
+                </div>
+        
+            </form>
+        </div>
 
         <div class="table-responsive">
             <table class="table table-dark table-hover align-middle">

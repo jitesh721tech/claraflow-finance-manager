@@ -54,6 +54,10 @@ def logout_view(request):
 
 @login_required
 def dashboard(request):
+    transaction_type = request.GET.get('type', 'all')
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+
     incomes = Income.objects.filter(user=request.user)
     expenses = Expense.objects.filter(user=request.user)
 
@@ -62,8 +66,21 @@ def dashboard(request):
 
     savings = total_income - total_expense
 
-    # Last 5 transactions (combine income + expense)
-    transactions = list(incomes) + list(expenses)
+    # Type filter
+    if transaction_type == 'income':
+        transactions = list(incomes)
+    elif transaction_type == 'expense':
+        transactions = list(expenses)
+    else:
+        transactions = list(incomes) + list(expenses)
+
+    # Date filter
+    if start_date:
+        transactions = [t for t in transactions if str(t.date) >= start_date]
+
+    if end_date:
+        transactions = [t for t in transactions if str(t.date) <= end_date]
+
     transactions.sort(key=lambda x: x.date, reverse=True)
     transactions = transactions[:5]
 
@@ -71,7 +88,10 @@ def dashboard(request):
         'total_income': total_income,
         'total_expense': total_expense,
         'savings': savings,
-        'transactions': transactions
+        'transactions': transactions,
+        'transaction_type': transaction_type,
+        'start_date': start_date,
+        'end_date': end_date,
     }
 
     return render(request, 'dashboard.html', context)

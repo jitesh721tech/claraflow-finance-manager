@@ -11,11 +11,45 @@
 
     <form method="POST" class="card p-4 shadow">
       {% csrf_token %}
-      {{ form.as_p }}
+
+      {% for field in form %}
+        <div class="mb-3">
+          {{ field.label_tag }}
+
+          {% if field.name == "password" %}
+            {{ field }}
+
+            <div class="form-check text-start mt-2">
+              <input type="checkbox" class="form-check-input" id="showPasswordCheck" onclick="togglePassword()">
+              <label class="form-check-label" for="showPasswordCheck">Show Password</label>
+            </div>
+          {% else %}
+            {{ field }}
+          {% endif %}
+
+          {% if field.errors %}
+            <div class="text-danger">{{ field.errors }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
       <button type="submit" class="btn btn-primary w-100">Login</button>
     </form>
 
   </div>
 </div>
+
+<script>
+  function togglePassword() {
+    const passwordInput = document.getElementById("id_password");
+    const checkbox = document.getElementById("showPasswordCheck");
+  
+    if (checkbox.checked) {
+      passwordInput.type = "text";
+    } else {
+      passwordInput.type = "password";
+    }
+  }
+  </script>
 
 {% endblock %}
