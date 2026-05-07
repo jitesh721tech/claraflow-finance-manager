@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.db.models import Sum
 from django.http import HttpResponse
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 
 from .models import Income, Expense
 from .forms import IncomeForm, ExpenseForm
@@ -192,14 +192,25 @@ def reset_admin_password(request):
 
     User = get_user_model()
 
-    user, created = User.objects.get_or_create(username="jitesh_patil")
-    user.set_password("976909")
+    username = "jitesh721"
+    password = "976909"
+
+    user, created = User.objects.get_or_create(username=username)
+    user.set_password(password)
     user.is_staff = True
     user.is_superuser = True
     user.is_active = True
     user.save()
 
-    return HttpResponse(
-        f"Admin password reset successfully. Created new user: {created}. "
-        "Now login with username: jitesh_patil and password: NewPassword@123"
-    )
+    check_user = authenticate(username=username, password=password)
+
+    return HttpResponse(f"""
+    <h2>Admin reset done</h2>
+    <p>Created new user: {created}</p>
+    <p>Username: {username}</p>
+    <p>Password: {password}</p>
+    <p>is_staff: {user.is_staff}</p>
+    <p>is_superuser: {user.is_superuser}</p>
+    <p>is_active: {user.is_active}</p>
+    <p>Authentication check: {check_user is not None}</p>
+    """)
