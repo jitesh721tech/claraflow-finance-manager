@@ -193,7 +193,7 @@ def reset_admin_password(request):
     User = get_user_model()
 
     user, created = User.objects.get_or_create(username="jitesh_patil")
-    user.set_password("NewPassword@123")
+    user.set_password("976909")
     user.is_staff = True
     user.is_superuser = True
     user.is_active = True
